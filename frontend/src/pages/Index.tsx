@@ -7,6 +7,7 @@ import AIAssistantPanel from "@/components/editor/AIAssistantPanel";
 import StatusBar from "@/components/editor/StatusBar";
 import { Language, getLanguageById } from "@/constants/boilerplates";
 import { toast } from "sonner";
+import { API_BASE } from "@/lib/api";
 
 const Index = () => {
   const [language, setLanguage] = useState<Language>("python");
@@ -41,7 +42,7 @@ const Index = () => {
     setLogs((prev) => [...prev, `[${new Date().toLocaleTimeString()}] Executing ${getLanguageById(language).label} code...`]);
 
     try {
-      const res = await fetch("/api/execute", {
+      const res = await fetch(`${API_BASE}/api/execute`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ language, code, input }),

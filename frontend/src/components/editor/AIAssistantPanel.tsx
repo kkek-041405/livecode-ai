@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { Sparkles, Send, X, Code, Bug, Zap, MessageSquare, Lightbulb, Copy, Check, Trash2 } from "lucide-react";
+import { API_BASE } from "@/lib/api";
 
 interface Message {
   role: "user" | "assistant";
@@ -146,7 +147,7 @@ const AIAssistantPanel = ({ isOpen, onClose, currentCode, language }: AIAssistan
         .slice(1) // skip initial assistant greeting
         .map((m) => ({ role: m.role, content: m.content }));
 
-      const res = await fetch("/api/ai", {
+      const res = await fetch(`${API_BASE}/api/ai`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
