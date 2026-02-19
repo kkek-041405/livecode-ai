@@ -1,0 +1,220 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@layer base {
+  :root {
+    --background: 220 16% 12%;
+    --foreground: 215 20% 90%;
+
+    --card: 220 16% 14%;
+    --card-foreground: 215 20% 90%;
+
+    --popover: 220 16% 16%;
+    --popover-foreground: 215 20% 90%;
+
+    --primary: 187 70% 50%;
+    --primary-foreground: 220 16% 8%;
+
+    --secondary: 220 16% 18%;
+    --secondary-foreground: 215 20% 80%;
+
+    --muted: 220 14% 16%;
+    --muted-foreground: 215 12% 55%;
+
+    --accent: 270 60% 60%;
+    --accent-foreground: 215 20% 95%;
+
+    --destructive: 0 72% 55%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 14% 20%;
+    --input: 220 14% 20%;
+    --ring: 187 70% 50%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 220 16% 10%;
+    --sidebar-foreground: 215 20% 80%;
+    --sidebar-primary: 187 70% 50%;
+    --sidebar-primary-foreground: 220 16% 8%;
+    --sidebar-accent: 220 14% 16%;
+    --sidebar-accent-foreground: 215 20% 90%;
+    --sidebar-border: 220 14% 18%;
+    --sidebar-ring: 187 70% 50%;
+
+    /* LiveCode+ custom tokens */
+    --editor-bg: 220 16% 10%;
+    --editor-gutter: 220 14% 14%;
+    --panel-header: 220 16% 13%;
+    --console-bg: 220 18% 8%;
+    --success: 145 65% 45%;
+    --success-foreground: 145 10% 95%;
+    --warning: 38 90% 55%;
+    --warning-foreground: 38 10% 10%;
+    --info: 210 70% 55%;
+    --info-foreground: 210 10% 95%;
+    --running: 270 60% 60%;
+    --navbar-bg: 220 18% 8%;
+    --tab-active: 187 70% 50%;
+    --cursor-1: 187 70% 50%;
+    --cursor-2: 330 70% 60%;
+    --cursor-3: 100 60% 50%;
+    --cursor-4: 38 90% 55%;
+
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+  }
+
+  code, pre, .font-mono {
+    font-family: var(--font-mono);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: hsl(var(--editor-bg));
+}
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--border));
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground));
+}
+
+/* Panel resize handle */
+[data-panel-group-direction="horizontal"] > [data-resize-handle-active],
+[data-panel-group-direction="horizontal"] > [data-resize-handle] {
+  width: 3px !important;
+  background: hsl(var(--border));
+  transition: background 0.2s;
+}
+[data-panel-group-direction="horizontal"] > [data-resize-handle]:hover,
+[data-panel-group-direction="horizontal"] > [data-resize-handle-active] {
+  background: hsl(var(--primary));
+}
+[data-panel-group-direction="vertical"] > [data-resize-handle-active],
+[data-panel-group-direction="vertical"] > [data-resize-handle] {
+  height: 3px !important;
+  background: hsl(var(--border));
+  transition: background 0.2s;
+}
+[data-panel-group-direction="vertical"] > [data-resize-handle]:hover,
+[data-panel-group-direction="vertical"] > [data-resize-handle-active] {
+  background: hsl(var(--primary));
+}
+
+/* Typing animation */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 5px hsl(var(--primary) / 0.3); }
+  50% { box-shadow: 0 0 15px hsl(var(--primary) / 0.6); }
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+/* AI Assistant message styles */
+.ai-message .code-block-wrapper {
+  position: relative;
+  margin: 8px 0;
+  border-radius: 6px;
+  overflow: hidden;
+  background: hsl(var(--console-bg));
+  border: 1px solid hsl(var(--border));
+}
+
+.ai-message .code-block-lang {
+  display: block;
+  padding: 2px 8px;
+  font-size: 9px;
+  font-family: var(--font-mono);
+  color: hsl(var(--muted-foreground));
+  background: hsl(var(--panel-header));
+  border-bottom: 1px solid hsl(var(--border));
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ai-message .code-block {
+  padding: 8px 10px;
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.5;
+  font-family: var(--font-mono);
+  overflow-x: auto;
+  white-space: pre;
+}
+
+.ai-message .code-block code {
+  font-family: inherit;
+  background: none;
+  padding: 0;
+}
+
+.ai-message .inline-code {
+  padding: 1px 4px;
+  background: hsl(var(--background) / 0.5);
+  border-radius: 3px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+}
+
+.ai-message strong {
+  font-weight: 600;
+  color: hsl(var(--foreground));
+}
+
+.ai-message em {
+  font-style: italic;
+  color: hsl(var(--muted-foreground));
+}
+
+.ai-message li {
+  padding-left: 4px;
+  position: relative;
+}
+
+.ai-message li::before {
+  content: "•";
+  position: absolute;
+  left: -8px;
+  color: hsl(var(--primary));
+}
+
+.ai-message li.list-decimal::before {
+  content: none;
+}
